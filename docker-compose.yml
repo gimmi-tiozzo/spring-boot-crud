@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  database:
+    image: gimmitest/mysql-database:1.0.0
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: db-layer
+    ports:
+      - 3306:3306
+  backend:
+    image: gimmitest/spring-backend:1.0.0
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: be-layer
+    ports:
+      - 8484:8484
+    depends_on:
+      - database
