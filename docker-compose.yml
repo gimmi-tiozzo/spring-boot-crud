@@ -19,3 +19,13 @@ services:
       - 8484:8484
     depends_on:
       - database
+  frontend:
+    image: gimmitest/spring-frontend:1.0.0
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fe-layer
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
