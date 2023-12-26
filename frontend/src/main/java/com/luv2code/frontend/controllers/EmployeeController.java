@@ -31,7 +31,7 @@ public class EmployeeController {
      * @param employeeService Service relativo ai metodi di accesso CRUD al database dei dipendenti di una azienda
      */
     @Autowired
-    public EmployeeController(@Qualifier("employeeServiceMock") EmployeeService employeeService) {
+    public EmployeeController(@Qualifier("employeeServiceImpl") EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
