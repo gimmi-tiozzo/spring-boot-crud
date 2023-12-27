@@ -31,10 +31,28 @@ public class User {
     private String password;
 
     /**
-     * Email
+     * Indica se l'utente è abilitato
      */
     @Column(name = "enabled")
     private boolean enabled;
+
+    /**
+     * Nome
+     */
+    @Column(name = "first_name")
+    private String firstName;
+
+    /**
+     * Cognome
+     */
+    @Column(name = "last_name")
+    private String lastName;
+
+    /**
+     * Email
+     */
+    @Column(name = "email")
+    private String email;
 
     /**
      * Ruoli associati all'utente
@@ -69,13 +87,19 @@ public class User {
      * @param password Password
      * @param enabled Indica se l'utente è abilitato
      * @param roles Ruoli associati all'utente
+     * @param firstName Nome
+     * @param lastName Cognome
+     * @param email Email
      */
     public User(String userName, String password, boolean enabled,
-                Collection<Role> roles) {
+                Collection<Role> roles, String firstName, String lastName, String email) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     /**
@@ -159,6 +183,54 @@ public class User {
     }
 
     /**
+     * Ottieni il nome
+     * @return Nome
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Imposta il nome
+     * @param firstName Nome
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * Ottieni il cognome
+     * @return Cognome
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Imposta il cognome
+     * @param lastName cognome
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * Ottieni email
+     * @return Email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Imposta email
+     * @param email Email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
      * Ottieni la rappresentazione in stringa dell'oggetto dipendente di una azienda
      * @return Rappresentazione in stringa dell'oggetto dipendente di una azienda
      */
@@ -169,6 +241,9 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", roles=" + roles +
                 '}';
     }

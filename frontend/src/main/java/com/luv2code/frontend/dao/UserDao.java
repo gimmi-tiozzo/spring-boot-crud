@@ -12,4 +12,10 @@ public interface UserDao {
      * @return User trovato n base alla username
      */
     User findByUserName(String userName);
+
+    /**
+     * Salva un utente
+     * @param theUser Utente da salvare
+     */
+    void save(User theUser);
 }

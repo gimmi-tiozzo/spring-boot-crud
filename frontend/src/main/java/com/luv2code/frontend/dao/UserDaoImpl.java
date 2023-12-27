@@ -2,6 +2,7 @@ package com.luv2code.frontend.dao;
 
 import com.luv2code.frontend.entities.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,19 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<User> query = this.entityManager.createQuery("FROM User WHERE userName = :userName", User.class);
         query.setParameter("userName", userName);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException err) {
+            return null;
+        }
+    }
+
+    /**
+     * Salva un utente
+     * @param theUser Utente da salvare
+     */
+    @Override
+    public void save(User theUser) {
+        this.entityManager.merge(theUser);
     }
 }

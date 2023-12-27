@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Gestione vincoli di sicurezza
@@ -42,11 +43,13 @@ public class EmployeeSecurity {
     /**
      * Configura il filtro per gestire i vincoli di sicurezza
      * @param http Contesto Http
+     * @param customAuthenticationSuccessHandler Bean attivato in caso di login conclusa con successo
      * @return Filtro per gestire i vincoli di sicurezza
      * @throws Exception In caso di errori
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler
+            customAuthenticationSuccessHandler) throws Exception {
         http.authorizeHttpRequests(sec -> sec
                 .requestMatchers(HttpMethod.GET, "/index.html").hasRole("EMPLOYEE")
                 .requestMatchers(HttpMethod.GET, "/employees/list").hasRole("EMPLOYEE")
@@ -54,9 +57,11 @@ public class EmployeeSecurity {
                 .requestMatchers(HttpMethod.GET, "/employees/showFormForUpdate").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.POST, "/employees/save").hasRole("MANAGER")
                 .requestMatchers(HttpMethod.GET, "/employees/delete/**").hasRole("ADMIN")
+                .requestMatchers("/register/**").permitAll()
         ).formLogin(form -> form
                         .loginPage("/showMyLoginPage")
                         .loginProcessingUrl("/authenticateTheUser")
+                        .successHandler(customAuthenticationSuccessHandler)
                         .permitAll()
         ).logout(LogoutConfigurer::permitAll
         ).exceptionHandling(sec -> sec.accessDeniedPage("/access-denied"));

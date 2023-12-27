@@ -1,5 +1,6 @@
 package com.luv2code.frontend.services;
 
+import com.luv2code.frontend.dto.WebUser;
 import com.luv2code.frontend.entities.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -13,4 +14,10 @@ public interface UserService extends UserDetailsService {
      * @return User trovato in base al suo username
      */
     User findByUserName(String userName);
+
+    /**
+     * Salva uno user a database
+     * @param webUser User da salvare
+     */
+    public void save(WebUser webUser);
 }

@@ -9,6 +9,8 @@ services:
     container_name: db-layer
     ports:
       - 3306:3306
+    healthcheck:
+      test: "exit 0"
   backend:
     image: gimmitest/spring-backend:1.0.0
     build:
@@ -18,7 +20,8 @@ services:
     ports:
       - 8484:8484
     depends_on:
-      - database
+      database:
+        condition: service_healthy
   frontend:
     image: gimmitest/spring-frontend:1.0.0
     build:
@@ -28,5 +31,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - database
-      - backend
+      database:
+        condition: service_healthy
+      backend:
+        condition: service_started
