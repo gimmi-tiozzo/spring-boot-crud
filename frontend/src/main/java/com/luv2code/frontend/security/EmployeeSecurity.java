@@ -51,6 +51,8 @@ public class EmployeeSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler
             customAuthenticationSuccessHandler) throws Exception {
         http.authorizeHttpRequests(sec -> sec
+                .requestMatchers(HttpMethod.GET, "/favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.GET, "/access-denied").permitAll()
                 .requestMatchers(HttpMethod.GET, "/index.html").hasRole("EMPLOYEE")
                 .requestMatchers(HttpMethod.GET, "/employees/list").hasRole("EMPLOYEE")
                 .requestMatchers(HttpMethod.GET, "/employees/showFormForAdd").hasRole("MANAGER")

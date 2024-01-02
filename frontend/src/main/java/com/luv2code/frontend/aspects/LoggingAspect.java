@@ -24,19 +24,19 @@ public class LoggingAspect {
     /**
      * Pointcut per intercettare qualsiasi metodo di qualsiasi classe nel package com.luv2code.frontend.controllers
      */
-    @Pointcut("execution(* com.luv2code.frontend.controllers.*.*(..)")
+    @Pointcut("execution(* com.luv2code.frontend.controllers.*.*(..))")
     private void forControllersPackage() {}
 
     /**
      * Pointcut per intercettare qualsiasi metodo di qualsiasi classe nel package com.luv2code.frontend.services
      */
-    @Pointcut("execution(* com.luv2code.frontend.services.*.*(..)")
+    @Pointcut("execution(* com.luv2code.frontend.services.*.*(..))")
     private void forServicesPackage() {}
 
     /**
      * Pointcut per intercettare qualsiasi metodo di qualsiasi classe nel package com.luv2code.frontend.dao
      */
-    @Pointcut("execution(* com.luv2code.frontend.dao.*.*(..)")
+    @Pointcut("execution(* com.luv2code.frontend.dao.*.*(..))")
     private void forDaoPackage() {}
 
     /**

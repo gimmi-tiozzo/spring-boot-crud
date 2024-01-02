@@ -17,6 +17,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: be-layer
+    volumes:
+      - backend-volume:/app/spring-log
     ports:
       - 8484:8484
     depends_on:
@@ -28,6 +30,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: fe-layer
+    volumes:
+      - c:\temp:/app/spring-log
     ports:
       - 8080:8080
     depends_on:
@@ -35,3 +39,6 @@ services:
         condition: service_healthy
       backend:
         condition: service_started
+
+volumes:
+  backend-volume:
